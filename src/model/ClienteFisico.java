@@ -3,6 +3,7 @@ package model;
 public class ClienteFisico extends Cliente {
 	private String cpf;
 	private String celular;
+	
 	public String getCpf() {
 		return cpf;
 	}
@@ -17,7 +18,7 @@ public class ClienteFisico extends Cliente {
 	}
 	@Override
 	public String toString() {
-		return cpf + ";" + getNome() + ";" + getEndereco() + ";" + getNumero() + ";" + getComplemento() + ";" + getCep() + ";" + celular;
+		return getCpf() + ";" + getNome() + ";" + getEndereco() + ";" + getNumero() + ";" + getComplemento() + ";" + getCep() + ";" + getCelular();
 	}
 		
 }

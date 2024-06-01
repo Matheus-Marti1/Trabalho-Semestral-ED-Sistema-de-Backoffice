@@ -10,6 +10,9 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+
+import controller.ClienteFisicoController;
+
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
@@ -32,6 +35,7 @@ public class Tela extends JFrame {
 	private JTextField tfClienteJuridicoCep;
 	private JTextField tfClienteJuridicoTelefone;
 	private JTextField textField;
+	private JTextField tfClienteFisicoCelular;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -102,6 +106,11 @@ public class Tela extends JFrame {
 		lblClienteFisicoCep.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblClienteFisicoCep.setBounds(10, 221, 67, 25);
 		tabClienteFisico.add(lblClienteFisicoCep);
+		
+		JLabel lblClienteFisicoCelular = new JLabel("Celular");
+		lblClienteFisicoCelular.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblClienteFisicoCelular.setBounds(10, 260, 67, 25);
+		tabClienteFisico.add(lblClienteFisicoCelular);
 
 		tfClienteFisicoNome = new JTextField();
 		tfClienteFisicoNome.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -139,8 +148,15 @@ public class Tela extends JFrame {
 		tfClienteFisicoCep.setBounds(121, 218, 367, 31);
 		tabClienteFisico.add(tfClienteFisicoCep);
 		
+		tfClienteFisicoCelular = new JTextField();
+		tfClienteFisicoCelular.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tfClienteFisicoCelular.setColumns(10);
+		tfClienteFisicoCelular.setBounds(121, 257, 367, 31);
+		tabClienteFisico.add(tfClienteFisicoCelular);
+		
+		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(10, 257, 759, 208);
+		scrollPane_1.setBounds(10, 317, 759, 148);
 		tabClienteFisico.add(scrollPane_1);
 		
 		JTextArea taClienteFisico = new JTextArea();
@@ -276,5 +292,13 @@ public class Tela extends JFrame {
 		JTextArea taClienteJuridico = new JTextArea();
 		scrollPane.setViewportView(taClienteJuridico);
 		taClienteJuridico.setEditable(false);
+		
+		ClienteFisicoController cfCont = new ClienteFisicoController(tfClienteFisicoNome, tfClienteFisicoCpf, tfClienteFisicoEndereco, tfClienteFisicoNumero, tfClienteFisicoComplemento, tfClienteFisicoCep, tfClienteFisicoCelular, taClienteFisico);
+		btnClienteFisicoCadastrar.addActionListener(cfCont);
+		btnClienteFisicoConsultar.addActionListener(cfCont);
+		btnClienteFisicoExcluir.addActionListener(cfCont);
+		
+		
+		
 	}
 }

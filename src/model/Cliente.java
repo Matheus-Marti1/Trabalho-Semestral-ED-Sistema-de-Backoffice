@@ -3,7 +3,7 @@ package model;
 public abstract class Cliente {
 	private String nome;
 	private String endereco;
-	private int numero;
+	private String numero;
 	private String complemento;
 	private String cep;
 	
@@ -19,10 +19,10 @@ public abstract class Cliente {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-	public int getNumero() {
+	public String getNumero() {
 		return numero;
 	}
-	public void setNumero(int numero) {
+	public void setNumero(String numero) {
 		this.numero = numero;
 	}
 	public String getComplemento() {
