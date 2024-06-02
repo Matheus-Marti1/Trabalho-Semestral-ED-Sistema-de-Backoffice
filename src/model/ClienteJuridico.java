@@ -1,12 +1,10 @@
 package model;
 
-public class ClienteJuridico extends Cliente{
+public class ClienteJuridico extends Cliente {
 	private String cnpj;
 	private String telefone;
 	private String email;
-	
-	
-	
+
 	public String getCnpj() {
 		return cnpj;
 	}
@@ -33,6 +31,7 @@ public class ClienteJuridico extends Cliente{
 
 	@Override
 	public String toString() {
-		return cnpj + ";" + getNome() + ";" + getEndereco() + ";" + getNumero() + ";" + getComplemento() + ";" + getCep() + ";" + telefone + ";" + email;
-	}		
+		return getCnpj() + ";" + getNome() + ";" + getEndereco() + ";" + getNumero() + ";" + getComplemento() + ";"
+				+ getCep() + ";" + getTelefone() + ";" + getEmail();
+	}
 }

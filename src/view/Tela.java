@@ -12,6 +12,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
 import controller.ClienteFisicoController;
+import controller.ClienteJuridicoController;
 
 import javax.swing.JTextArea;
 import javax.swing.JButton;
@@ -34,7 +35,7 @@ public class Tela extends JFrame {
 	private JTextField tfClienteJuridicoComplemento;
 	private JTextField tfClienteJuridicoCep;
 	private JTextField tfClienteJuridicoTelefone;
-	private JTextField textField;
+	private JTextField tfClienteJuridicoEmail;
 	private JTextField tfClienteFisicoCelular;
 
 	public static void main(String[] args) {
@@ -106,7 +107,7 @@ public class Tela extends JFrame {
 		lblClienteFisicoCep.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblClienteFisicoCep.setBounds(10, 221, 67, 25);
 		tabClienteFisico.add(lblClienteFisicoCep);
-		
+
 		JLabel lblClienteFisicoCelular = new JLabel("Celular");
 		lblClienteFisicoCelular.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblClienteFisicoCelular.setBounds(10, 260, 67, 25);
@@ -147,32 +148,31 @@ public class Tela extends JFrame {
 		tfClienteFisicoCep.setColumns(10);
 		tfClienteFisicoCep.setBounds(121, 218, 367, 31);
 		tabClienteFisico.add(tfClienteFisicoCep);
-		
+
 		tfClienteFisicoCelular = new JTextField();
 		tfClienteFisicoCelular.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tfClienteFisicoCelular.setColumns(10);
 		tfClienteFisicoCelular.setBounds(121, 257, 367, 31);
 		tabClienteFisico.add(tfClienteFisicoCelular);
-		
-		
+
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(10, 317, 759, 148);
 		tabClienteFisico.add(scrollPane_1);
-		
+
 		JTextArea taClienteFisico = new JTextArea();
 		scrollPane_1.setViewportView(taClienteFisico);
 		taClienteFisico.setEditable(false);
-		
+
 		JButton btnClienteFisicoCadastrar = new JButton("Cadastrar");
 		btnClienteFisicoCadastrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnClienteFisicoCadastrar.setBounds(590, 14, 127, 42);
 		tabClienteFisico.add(btnClienteFisicoCadastrar);
-		
+
 		JButton btnClienteFisicoConsultar = new JButton("Consultar");
 		btnClienteFisicoConsultar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnClienteFisicoConsultar.setBounds(590, 98, 127, 42);
 		tabClienteFisico.add(btnClienteFisicoConsultar);
-		
+
 		JButton btnClienteFisicoExcluir = new JButton("Excluir");
 		btnClienteFisicoExcluir.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnClienteFisicoExcluir.setBounds(590, 185, 127, 42);
@@ -264,41 +264,47 @@ public class Tela extends JFrame {
 		lblClienteJuridicoEmail.setBounds(10, 299, 67, 25);
 		tabClienteJuridico.add(lblClienteJuridicoEmail);
 
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textField.setColumns(10);
-		textField.setBounds(121, 296, 367, 31);
-		tabClienteJuridico.add(textField);
-		
+		tfClienteJuridicoEmail = new JTextField();
+		tfClienteJuridicoEmail.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tfClienteJuridicoEmail.setColumns(10);
+		tfClienteJuridicoEmail.setBounds(121, 296, 367, 31);
+		tabClienteJuridico.add(tfClienteJuridicoEmail);
+
 		JButton btnClienteJuridicoCadastrar = new JButton("Cadastrar");
 		btnClienteJuridicoCadastrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnClienteJuridicoCadastrar.setBounds(590, 56, 127, 42);
 		tabClienteJuridico.add(btnClienteJuridicoCadastrar);
-		
+
 		JButton btnClienteJuridicoConsultar = new JButton("Consultar");
 		btnClienteJuridicoConsultar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnClienteJuridicoConsultar.setBounds(590, 140, 127, 42);
 		tabClienteJuridico.add(btnClienteJuridicoConsultar);
-		
+
 		JButton btnClienteJuridicoExcluir = new JButton("Excluir");
 		btnClienteJuridicoExcluir.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnClienteJuridicoExcluir.setBounds(590, 227, 127, 42);
 		tabClienteJuridico.add(btnClienteJuridicoExcluir);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 335, 759, 130);
 		tabClienteJuridico.add(scrollPane);
-		
+
 		JTextArea taClienteJuridico = new JTextArea();
 		scrollPane.setViewportView(taClienteJuridico);
 		taClienteJuridico.setEditable(false);
-		
-		ClienteFisicoController cfCont = new ClienteFisicoController(tfClienteFisicoNome, tfClienteFisicoCpf, tfClienteFisicoEndereco, tfClienteFisicoNumero, tfClienteFisicoComplemento, tfClienteFisicoCep, tfClienteFisicoCelular, taClienteFisico);
+
+		ClienteFisicoController cfCont = new ClienteFisicoController(tfClienteFisicoNome, tfClienteFisicoCpf,
+				tfClienteFisicoEndereco, tfClienteFisicoNumero, tfClienteFisicoComplemento, tfClienteFisicoCep,
+				tfClienteFisicoCelular, taClienteFisico);
+		ClienteJuridicoController cjCont = new ClienteJuridicoController(tfClienteJuridicoNome, tfClienteJuridicoCnpj,
+				tfClienteJuridicoEndereco, tfClienteJuridicoNumero, tfClienteJuridicoComplemento, tfClienteJuridicoCep,
+				tfClienteJuridicoTelefone, tfClienteJuridicoEmail, taClienteJuridico);
 		btnClienteFisicoCadastrar.addActionListener(cfCont);
 		btnClienteFisicoConsultar.addActionListener(cfCont);
 		btnClienteFisicoExcluir.addActionListener(cfCont);
-		
-		
-		
+		btnClienteJuridicoCadastrar.addActionListener(cjCont);
+		btnClienteJuridicoConsultar.addActionListener(cjCont);
+		btnClienteJuridicoExcluir.addActionListener(cjCont);
+
 	}
 }
