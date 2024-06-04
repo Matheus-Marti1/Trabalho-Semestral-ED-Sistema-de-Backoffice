@@ -23,26 +23,7 @@ import controller.ClienteFisicoController;
 import controller.ClienteJuridicoController;
 
 public class Tela extends JFrame {
-
-<<<<<<< HEAD
-    private static final long serialVersionUID = 1L;
-    private JPanel contentPane;
-    private JTextField tfClienteFisicoNome;
-    private JTextField tfClienteFisicoCpf;
-    private JTextField tfClienteFisicoEndereco;
-    private JTextField tfClienteFisicoNumero;
-    private JTextField tfClienteFisicoComplemento;
-    private JTextField tfClienteFisicoCep;
-    private JTextField tfClienteJuridicoNome;
-    private JTextField tfClienteJuridicoCnpj;
-    private JTextField tfClienteJuridicoEndereco;
-    private JTextField tfClienteJuridicoNumero;
-    private JTextField tfClienteJuridicoComplemento;
-    private JTextField tfClienteJuridicoCep;
-    private JTextField tfClienteJuridicoTelefone;
-    private JTextField tfClienteJuridicoEmail;
-    private JTextField tfClienteFisicoCelular;
-=======
+	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField tfClienteFisicoNome;
@@ -65,7 +46,6 @@ public class Tela extends JFrame {
 	private JTextField tfCadastroProdutosCodigo;
 	private JTextField textField;
 	private JTextField textField_1;
->>>>>>> 8705a7f151e2c47f9437e1c5d79b12c9fd11a648
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -94,15 +74,9 @@ public class Tela extends JFrame {
         tabbedPane.setBounds(10, 11, 880, 531);
         contentPane.add(tabbedPane);
 
-<<<<<<< HEAD
-        JPanel tabCliente = new JPanel();
-        tabbedPane.addTab("Cliente", null, tabCliente, "Cadastrar Cliente");
-        tabCliente.setLayout(null);
-=======
-		JPanel tabCliente = new JPanel();
-		tabbedPane.addTab("Cliente", null, tabCliente, "Cadastrar e consultar clientes");
-		tabCliente.setLayout(null);
->>>>>>> 8705a7f151e2c47f9437e1c5d79b12c9fd11a648
+	JPanel tabCliente = new JPanel();
+	tabbedPane.addTab("Cliente", null, tabCliente, "Cadastrar e consultar clientes");
+	tabCliente.setLayout(null);
 
         JTabbedPane tabClienteSeletor = new JTabbedPane(JTabbedPane.LEFT);
         tabClienteSeletor.setBorder(new CompoundBorder());
@@ -328,7 +302,6 @@ public class Tela extends JFrame {
         scrollPane.setViewportView(taClienteJuridico);
         taClienteJuridico.setEditable(false);
 
-<<<<<<< HEAD
         ClienteFisicoController cfCont = new ClienteFisicoController(tfClienteFisicoNome, tfClienteFisicoCpf,
                 tfClienteFisicoEndereco, tfClienteFisicoNumero, tfClienteFisicoComplemento, tfClienteFisicoCep,
                 tfClienteFisicoCelular, taClienteFisico);
@@ -341,7 +314,7 @@ public class Tela extends JFrame {
         btnClienteJuridicoCadastrar.addActionListener(cjCont);
         btnClienteJuridicoConsultar.addActionListener(cjCont);
         btnClienteJuridicoExcluir.addActionListener(cjCont);
-=======
+	    
 		ClienteFisicoController cfCont = new ClienteFisicoController(tfClienteFisicoNome, tfClienteFisicoCpf,
 				tfClienteFisicoEndereco, tfClienteFisicoNumero, tfClienteFisicoComplemento, tfClienteFisicoCep,
 				tfClienteFisicoCelular, taClienteFisico);
@@ -578,7 +551,6 @@ public class Tela extends JFrame {
 		btnClienteJuridicoCadastrar.addActionListener(cjCont);
 		btnClienteJuridicoConsultar.addActionListener(cjCont);
 		btnClienteJuridicoExcluir.addActionListener(cjCont);
->>>>>>> 8705a7f151e2c47f9437e1c5d79b12c9fd11a648
 
     }
 }
