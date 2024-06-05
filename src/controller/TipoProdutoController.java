@@ -68,7 +68,7 @@ public class TipoProdutoController implements ActionListener {
         TipoProduto tipoProd = new TipoProduto();
         tipoProd.setCodIdentificador(Integer.parseInt(tfTipoProdutoCodIdentificador.getText()));
         tipoProd.setNome(tfTipoProdutoNome.getText());
-        tipoProd.setdescricao(taTipoProdutoDescricao.getText());
+        tipoProd.setDescricao(taTipoProdutoDescricao.getText());
 
         cadastraTipoProduto(tipoProd.toString());
         tfTipoProdutoCodIdentificador.setText("");
