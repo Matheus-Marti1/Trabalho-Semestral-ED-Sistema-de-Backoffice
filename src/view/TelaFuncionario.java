@@ -2,6 +2,9 @@ package view;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
 
 import javax.swing.DropMode;
 import javax.swing.JButton;
@@ -25,8 +28,10 @@ import controller.ClienteFisicoController;
 import controller.ClienteJuridicoController;
 import controller.ProdutoController;
 import controller.TipoProdutoController;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class Tela extends JFrame {
+public class TelaFuncionario extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
@@ -53,31 +58,21 @@ public class Tela extends JFrame {
     private JTextField tfTiposCadastroNome;
     private JTextField tfTiposCadastroCodigo;
     
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel("com.formdev.flatlaf.FlatDarkLaf");
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    Tela frame = new Tela();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    public Tela() {
-        setTitle("Sistema Backoffice");
+    public TelaFuncionario(JFrame parentFrame) {
+    	setTitle("Sistema Backoffice");
         setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 916, 592);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                parentFrame.setVisible(true);
+                dispose();
+            }
+        });
 
         setContentPane(contentPane);
         contentPane.setLayout(null);
@@ -385,7 +380,8 @@ public class Tela extends JFrame {
         lblProdutosCadastroTipo.setBounds(10, 315, 67, 25);
         tabProdutosCadastro.add(lblProdutosCadastroTipo);
 
-        JComboBox cbProdutosCadastroTipo = new JComboBox();
+        JComboBox<Object> cbProdutosCadastroTipo = new JComboBox<Object>();
+        
         cbProdutosCadastroTipo.setFont(new Font("Tahoma", Font.PLAIN, 14));
         cbProdutosCadastroTipo.setToolTipText("Selecione o tipo do produto");
         cbProdutosCadastroTipo.setBounds(121, 315, 194, 25);
@@ -548,10 +544,15 @@ public class Tela extends JFrame {
         btnTiposConsultaExcluirTipo.setFont(new Font("Tahoma", Font.PLAIN, 14));
         btnTiposConsultaExcluirTipo.setBounds(183, 6, 192, 27);
         tabTiposConsulta.add(btnTiposConsultaExcluirTipo);
-
+        
+        ProdutoController pCont = new ProdutoController(tfCadastroProdutosNome, tfCadastroProdutosValor, taProdutosCadastroDescricao, cbProdutosCadastroTipo, spProdutosCadastroQtd, tfProdutosCadastroCodigo);
+        
+        JButton btnProdutosCadastroCarregarCB = new JButton("Recarregar");
+        btnProdutosCadastroCarregarCB.setBounds(327, 315, 93, 25);
+        tabProdutosCadastro.add(btnProdutosCadastroCarregarCB);
         TipoProdutoController tPCont = new TipoProdutoController(tfTiposCadastroCodigo, tfTiposCadastroNome, taTiposCadastroDescricao);
         btnTiposCadastroCadastrarTipo.addActionListener(tPCont);
         btnTiposConsultaExcluirTipo.addActionListener(tPCont);
-
+        btnProdutosCadastroCarregarCB.addActionListener(pCont);
     }
 }
