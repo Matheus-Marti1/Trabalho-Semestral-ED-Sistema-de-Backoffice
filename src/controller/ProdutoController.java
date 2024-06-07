@@ -25,112 +25,142 @@ import model.TipoProduto;
 
 public class ProdutoController implements ActionListener {
 
-    private JTextField tfProdutoCadastroNome;
-    private JTextField tfProdutoCadastroValor;
-    private JTextArea taProdutosCadastroDescricao;
-    private JComboBox cbProdutosCadastroTipo;
-    private JSpinner spProdutosCadastroQtd;
-    private JTextField tfProdutoCodigo;
+	private JTextField tfProdutoCadastroNome;
+	private JTextField tfProdutoCadastroValor;
+	private JTextArea taProdutosCadastroDescricao;
+	private JComboBox<Object> cbProdutosCadastroTipo;
+	private JSpinner spProdutosCadastroQtd;
+	private JTextField tfProdutoCodigo;
 
-    public ProdutoController(JTextField tfCadastroProdutosNome, JTextField tfCadastroProdutosValor, JTextArea taProdutosCadastroDescricao1, JComboBox cbProdutosCadastroTipo1, JSpinner spProdutosCadastroQtd1, JTextField tfProdutosCadastroCodigo) {
-        this.tfProdutoCadastroNome = tfCadastroProdutosNome;
-        this.tfProdutoCadastroValor = tfCadastroProdutosValor;
-        this.taProdutosCadastroDescricao = taProdutosCadastroDescricao1;
-        this.cbProdutosCadastroTipo = cbProdutosCadastroTipo1;
-        this.spProdutosCadastroQtd = spProdutosCadastroQtd1;
-        this.tfProdutoCodigo = tfProdutosCadastroCodigo;
-    }
+	public ProdutoController(JTextField tfCadastroProdutosNome, JTextField tfCadastroProdutosValor,
+			JTextArea taProdutosCadastroDescricao1, JComboBox<Object> cbProdutosCadastroTipo, JSpinner spProdutosCadastroQtd,
+			JTextField tfProdutosCadastroCodigo) {
+		this.tfProdutoCadastroNome = tfCadastroProdutosNome;
+		this.tfProdutoCadastroValor = tfCadastroProdutosValor;
+		this.taProdutosCadastroDescricao = taProdutosCadastroDescricao1;
+		this.cbProdutosCadastroTipo = cbProdutosCadastroTipo;
+		this.spProdutosCadastroQtd = spProdutosCadastroQtd;
+		this.tfProdutoCodigo = tfProdutosCadastroCodigo;
+	}
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String cmd = e.getActionCommand();
-        if (cmd.equals("Cadastrar Produto")) {
-            try {
-                cadastro();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        }
-        if (cmd.equals("Consultar")) {
-            try {
-                consulta();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        }
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String cmd = e.getActionCommand();
+		if (cmd.equals("Cadastrar Produto")) {
+			try {
+				cadastro();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+		if (cmd.equals("Consultar")) {
+			try {
+				consulta();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
 
-        if (cmd.equals("Excluir tipo selecionado")) {
-            try {
-                excluir();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        }
+		if (cmd.equals("Excluir tipo selecionado")) {
+			try {
+				excluir();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+		if (cmd.equals("Recarregar")) {
+			try {
+				carregarComboBox();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
 
-    }
+	}
 
-    private void cadastro() throws IOException {
-        List<TipoProduto> listaTipos = new ArrayList<>();
-        listaTipos = listarTipoProduto();
-        
-        //Remove todos os dados do comboboc
-        cbProdutosCadastroTipo.removeAll();
-        
-        for(TipoProduto tP : listaTipos) {
-            cbProdutosCadastroTipo.addItem(tP);
-        }
-        
-    }
+	private void cadastro() throws IOException {
+		List<TipoProduto> listaTipos = new ArrayList<>();
+		listaTipos = listarTipoProduto();
 
-    private List<TipoProduto> listarTipoProduto() throws FileNotFoundException, IOException {
-        //Criação da lista de objetos TipoProduto
-        List<TipoProduto> listaTipos = new ArrayList<>();
+		// Remove todos os dados do comboboc
+		cbProdutosCadastroTipo.removeAll();
 
-        TipoProduto tipoProd = new TipoProduto();
+		for (TipoProduto tP : listaTipos) {
+			cbProdutosCadastroTipo.addItem(tP);
+		}
 
-        // Obtém o caminho do diretório atual
-        String currentDirectory = new File(".").getCanonicalPath();
-        String path = currentDirectory + File.separator + "SistemaBackoffice";
-        File arq = new File(path, "tipoProduto.csv");
-        if (arq.exists() && arq.isFile()) {
-            FileInputStream fis = new FileInputStream(arq);
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader buffer = new BufferedReader(isr);
-            String linha = buffer.readLine();
-            while (linha != null) {
-                String[] vetLinha = linha.split(";");
-                tipoProd.setCodIdentificador(Integer.parseInt(vetLinha[0]));
-                tipoProd.setNome(vetLinha[1]);
-                tipoProd.setDescricao(vetLinha[0]);
-                linha = buffer.readLine();
-                
-                listaTipos.add(tipoProd);
-            }
-            buffer.close();
+	}
+
+	private List<TipoProduto> listarTipoProduto() throws FileNotFoundException, IOException {
+		// Criação da lista de objetos TipoProduto
+		List<TipoProduto> listaTipos = new ArrayList<>();
+
+		TipoProduto tipoProd = new TipoProduto();
+
+		// Obtém o caminho do diretório atual
+		String currentDirectory = new File(".").getCanonicalPath();
+		String path = currentDirectory + File.separator + "SistemaBackoffice";
+		File arq = new File(path, "tipoProduto.csv");
+		if (arq.exists() && arq.isFile()) {
+			FileInputStream fis = new FileInputStream(arq);
+			InputStreamReader isr = new InputStreamReader(fis);
+			BufferedReader buffer = new BufferedReader(isr);
+			String linha = buffer.readLine();
+			while (linha != null) {
+				String[] vetLinha = linha.split(";");
+				tipoProd.setCodIdentificador(Integer.parseInt(vetLinha[0]));
+				tipoProd.setNome(vetLinha[1]);
+				tipoProd.setDescricao(vetLinha[0]);
+				linha = buffer.readLine();
+
+				listaTipos.add(tipoProd);
+			}
+			buffer.close();
+			isr.close();
+			fis.close();
+		}
+		return listaTipos;
+	}
+
+	private void carregarComboBox() throws IOException {
+		String currentDirectory = new File(".").getCanonicalPath();
+		String path = currentDirectory + File.separator + "SistemaBackoffice";
+		File arq = new File(path, "tipoProduto.csv");
+		if (arq.exists() && arq.isFile()) {
+			FileInputStream fis = new FileInputStream(arq);
+			InputStreamReader isr = new InputStreamReader(fis);
+			BufferedReader buffer = new BufferedReader(isr);
+			String linha = buffer.readLine();
+			cbProdutosCadastroTipo.removeAllItems();
+			while (linha != null) {
+				String[] vetLinha = linha.split(";");
+				cbProdutosCadastroTipo.addItem(vetLinha[1]);
+				linha = buffer.readLine();
+			}
+			buffer.close();
             isr.close();
             fis.close();
-        }
-        return listaTipos;
-    }
+		}
+	}
 
-    private boolean codigoExiste(int codIdentificador) throws IOException {
-        return false;
-    }
+	private boolean codigoExiste(int codIdentificador) throws IOException {
+		return false;
+	}
 
-    private void cadastraProduto(String csvProduto) throws IOException {
+	private void cadastraProduto(String csvProduto) throws IOException {
 
-    }
+	}
 
-    private void consulta() throws IOException {
+	private void consulta() throws IOException {
 
-    }
+	}
 
-    private Produto buscaProduto(Produto prod) throws IOException {
-        return null;
-    }
+	private Produto buscaProduto(Produto prod) throws IOException {
+		return null;
+	}
 
-    private void excluir() throws IOException {
+	private void excluir() throws IOException {
 
-    }
+	}
 
 }
