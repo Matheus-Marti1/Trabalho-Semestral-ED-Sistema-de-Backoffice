@@ -441,7 +441,7 @@ public class TelaFuncionario extends JFrame {
 		btnConsultaProdutosExcluir.setBounds(544, 12, 223, 27);
 		tabProdutosConsulta.add(btnConsultaProdutosExcluir);
 
-		ProdutoController prodCont = new ProdutoController(tfProdutosCadastroNome, tfProdutosCadastroCodigo,
+		ProdutoController prodCont = new ProdutoController(tfProdutosCadastroNome, tfProdutosCadastroValor,
 				taProdutosCadastroDescricao, cbProdutosCadastroTipo, spProdutosCadastroQtd, tfProdutosCadastroCodigo);
 		btnProdutosCadastroCadastrar.addActionListener(prodCont);
 		btnProdutosConsultaConsultar.addActionListener(prodCont);
