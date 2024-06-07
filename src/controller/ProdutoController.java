@@ -32,19 +32,20 @@ public class ProdutoController implements ActionListener {
     private JSpinner spProdutosCadastroQtd;
     private JTextField tfProdutoCodigo;
 
-    public ProdutoController(JTextField tfCadastroProdutosNome, JTextField tfCadastroProdutosValor, JTextArea taProdutosCadastroDescricao1, JComboBox cbProdutosCadastroTipo1, JSpinner spProdutosCadastroQtd1, JTextField tfProdutosCadastroCodigo) {
-        this.tfProdutoCadastroNome = tfCadastroProdutosNome;
-        this.tfProdutoCadastroValor = tfCadastroProdutosValor;
+    public ProdutoController(JTextField tfCadastroProdutosNome1, JTextField tfCadastroProdutosValor1, JTextArea taProdutosCadastroDescricao1, JComboBox cbProdutosCadastroTipo1, JSpinner spProdutosCadastroQtd1, JTextField tfProdutosCadastroCodigo1) {
+        super();
+        this.tfProdutoCadastroNome = tfCadastroProdutosNome1;
+        this.tfProdutoCadastroValor = tfCadastroProdutosValor1;
         this.taProdutosCadastroDescricao = taProdutosCadastroDescricao1;
         this.cbProdutosCadastroTipo = cbProdutosCadastroTipo1;
         this.spProdutosCadastroQtd = spProdutosCadastroQtd1;
-        this.tfProdutoCodigo = tfProdutosCadastroCodigo;
+        this.tfProdutoCodigo = tfProdutosCadastroCodigo1;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         String cmd = e.getActionCommand();
-        if (cmd.equals("Cadastrar Produto")) {
+        if (cmd.equals("Cadastrar produto")) {
             try {
                 cadastro();
             } catch (IOException e1) {
@@ -69,42 +70,61 @@ public class ProdutoController implements ActionListener {
 
     }
 
-    private void cadastro() throws IOException {
+    public void cadastro() throws IOException {
+        preencheComboBox();
+        int codIdentificador = Integer.parseInt(tfProdutoCodigo.getText());
+        if (codigoExiste(codIdentificador)) {
+            JOptionPane.showMessageDialog(null, "Código de Identificador já Cadastrado");
+            return;
+        }
+
+        Produto prod = new Produto();
+        prod.setCodigo(codIdentificador);
+        
+        prod.setDescricao(taProdutosCadastroDescricao.getText());
+        prod.setCodigo(1);
+        prod.setNome("a");
+        prod.setValor(1.0);
+        prod.setQuantidadeEstoque(10);
+        prod.setTipoProduto(0);
+        
+
+        cadastraProduto(prod.toString());
+        JOptionPane.showMessageDialog(null, "Produto " + prod.getNome() + " cadastrado com sucesso!");
+    }
+
+    private void preencheComboBox() throws IOException {
         List<TipoProduto> listaTipos = new ArrayList<>();
         listaTipos = listarTipoProduto();
-        
-        //Remove todos os dados do comboboc
+
+        //Remove todos os dados do combobox
         cbProdutosCadastroTipo.removeAll();
-        
-        for(TipoProduto tP : listaTipos) {
+        for (TipoProduto tP : listaTipos) {
             cbProdutosCadastroTipo.addItem(tP);
         }
-        
     }
 
     private List<TipoProduto> listarTipoProduto() throws FileNotFoundException, IOException {
         //Criação da lista de objetos TipoProduto
         List<TipoProduto> listaTipos = new ArrayList<>();
 
-        TipoProduto tipoProd = new TipoProduto();
-
         // Obtém o caminho do diretório atual
         String currentDirectory = new File(".").getCanonicalPath();
         String path = currentDirectory + File.separator + "SistemaBackoffice";
-        File arq = new File(path, "tipoProduto.csv");
+        File arq = new File(path, "produto.csv");
         if (arq.exists() && arq.isFile()) {
             FileInputStream fis = new FileInputStream(arq);
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader buffer = new BufferedReader(isr);
             String linha = buffer.readLine();
             while (linha != null) {
+                TipoProduto tipoProd = new TipoProduto();
                 String[] vetLinha = linha.split(";");
-                tipoProd.setCodIdentificador(Integer.parseInt(vetLinha[0]));
-                tipoProd.setNome(vetLinha[1]);
-                tipoProd.setDescricao(vetLinha[0]);
-                linha = buffer.readLine();
-                
+                tipoProd.setNome(vetLinha[0]);
+                tipoProd.setCodIdentificador(Integer.parseInt(vetLinha[1]));
+                tipoProd.setDescricao(vetLinha[2]);
                 listaTipos.add(tipoProd);
+                linha = buffer.readLine();
             }
             buffer.close();
             isr.close();
@@ -114,11 +134,45 @@ public class ProdutoController implements ActionListener {
     }
 
     private boolean codigoExiste(int codIdentificador) throws IOException {
+        String currentDirectory = new File(".").getCanonicalPath();
+        String path = currentDirectory + File.separator + "SistemaBackoffice" + File.separator + "produto.csv";
+        File arq = new File(path);
+        if (!arq.exists()) {
+            return false;
+        }
+
+        BufferedReader buffer = new BufferedReader(new FileReader(arq));
+        String line;
+        while ((line = buffer.readLine()) != null) {
+            String[] parts = line.split(";");
+            if (Integer.parseInt(parts[0]) == codIdentificador) {
+                buffer.close();
+                return true;
+            }
+        }
+        buffer.close();
         return false;
     }
 
     private void cadastraProduto(String csvProduto) throws IOException {
-
+// Obtém o caminho do diretório atual
+        String currentDirectory = new File(".").getCanonicalPath();
+        String path = currentDirectory + File.separator + "SistemaBackoffice";
+        File dir = new File(path);
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+        File arq = new File(path, "produto.csv");
+        boolean existe = false;
+        if (arq.exists()) {
+            existe = true;
+        }
+        FileWriter fw = new FileWriter(arq, existe);
+        PrintWriter pw = new PrintWriter(fw);
+        pw.write(csvProduto + "\r\n");
+        pw.flush();
+        pw.close();
+        fw.close();
     }
 
     private void consulta() throws IOException {
