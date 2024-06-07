@@ -47,9 +47,6 @@ public class Tela extends JFrame {
     private JTextField tfClienteFisicoCelular;
     private JTextField tfCadastroProdutosNome;
     private JTextField tfCadastroProdutosValor;
-    private JTextField tfCadastroProdutosCodigo;
-    private JTextField textField;
-    private JTextField textField_1;
     private JTextField tfProdutosCadastroNome;
     private JTextField tfProdutosCadastroValor;
     private JTextField tfProdutosCadastroCodigo;
@@ -349,31 +346,31 @@ public class Tela extends JFrame {
         tabProdutosCadastro.add(lblProdutosCadastroNome);
 
         JLabel lblProdutosCadastroValor = new JLabel("Valor");
-        lblProdutosCadastroValor.setBounds(10, 82, 67, 25);
+        lblProdutosCadastroValor.setBounds(10, 85, 67, 25);
         lblProdutosCadastroValor.setFont(new Font("Tahoma", Font.PLAIN, 14));
         tabProdutosCadastro.add(lblProdutosCadastroValor);
 
         JLabel lblProdutosCadastroDescricao = new JLabel("Descrição");
-        lblProdutosCadastroDescricao.setBounds(10, 118, 67, 25);
+        lblProdutosCadastroDescricao.setBounds(10, 122, 93, 25);
         lblProdutosCadastroDescricao.setFont(new Font("Tahoma", Font.PLAIN, 14));
         tabProdutosCadastro.add(lblProdutosCadastroDescricao);
 
         tfProdutosCadastroNome = new JTextField();
         tfProdutosCadastroNome.setDropMode(DropMode.INSERT);
         tfProdutosCadastroNome.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        tfProdutosCadastroNome.setBounds(121, 11, 367, 31);
+        tfProdutosCadastroNome.setBounds(121, 8, 367, 31);
         tabProdutosCadastro.add(tfProdutosCadastroNome);
         tfProdutosCadastroNome.setColumns(10);
 
         tfProdutosCadastroValor = new JTextField();
         tfProdutosCadastroValor.setFont(new Font("Tahoma", Font.PLAIN, 14));
         tfProdutosCadastroValor.setDropMode(DropMode.INSERT);
-        tfProdutosCadastroValor.setBounds(121, 81, 367, 31);
+        tfProdutosCadastroValor.setBounds(121, 82, 367, 31);
         tabProdutosCadastro.add(tfProdutosCadastroValor);
         tfProdutosCadastroValor.setColumns(10);
 
         JScrollPane scrollPane_2 = new JScrollPane();
-        scrollPane_2.setBounds(121, 119, 367, 180);
+        scrollPane_2.setBounds(121, 123, 367, 180);
         tabProdutosCadastro.add(scrollPane_2);
 
         JTextArea taProdutosCadastroDescricao = new JTextArea();
@@ -385,25 +382,25 @@ public class Tela extends JFrame {
 
         JLabel lblProdutosCadastroTipo = new JLabel("Tipo");
         lblProdutosCadastroTipo.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        lblProdutosCadastroTipo.setBounds(10, 326, 67, 25);
+        lblProdutosCadastroTipo.setBounds(10, 315, 67, 25);
         tabProdutosCadastro.add(lblProdutosCadastroTipo);
 
         JComboBox cbProdutosCadastroTipo = new JComboBox();
         cbProdutosCadastroTipo.setFont(new Font("Tahoma", Font.PLAIN, 14));
         cbProdutosCadastroTipo.setToolTipText("Selecione o tipo do produto");
-        cbProdutosCadastroTipo.setBounds(121, 327, 177, 25);
+        cbProdutosCadastroTipo.setBounds(121, 315, 194, 25);
         tabProdutosCadastro.add(cbProdutosCadastroTipo);
 
         JLabel lblProdutosCadastroQtd = new JLabel("Quantidade em estoque");
         lblProdutosCadastroQtd.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        lblProdutosCadastroQtd.setBounds(10, 363, 165, 25);
+        lblProdutosCadastroQtd.setBounds(10, 352, 185, 25);
         tabProdutosCadastro.add(lblProdutosCadastroQtd);
 
         JSpinner spProdutosCadastroQtd = new JSpinner();
         spProdutosCadastroQtd
                 .setModel(new SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
         spProdutosCadastroQtd.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        spProdutosCadastroQtd.setBounds(181, 364, 117, 24);
+        spProdutosCadastroQtd.setBounds(198, 353, 117, 24);
         tabProdutosCadastro.add(spProdutosCadastroQtd);
 
         JButton btnProdutosCadastroCadastrar = new JButton("Cadastrar produto");
@@ -413,7 +410,7 @@ public class Tela extends JFrame {
 
         JLabel lblProdutosCadastroCodigo = new JLabel("Código");
         lblProdutosCadastroCodigo.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        lblProdutosCadastroCodigo.setBounds(10, 46, 67, 25);
+        lblProdutosCadastroCodigo.setBounds(10, 48, 67, 25);
         tabProdutosCadastro.add(lblProdutosCadastroCodigo);
 
         tfProdutosCadastroCodigo = new JTextField();
@@ -438,7 +435,7 @@ public class Tela extends JFrame {
 
         JButton btnProdutosConsultaConsultar = new JButton("Consultar produtos");
         btnProdutosConsultaConsultar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        btnProdutosConsultaConsultar.setBounds(276, 12, 161, 27);
+        btnProdutosConsultaConsultar.setBounds(276, 12, 223, 27);
         tabProdutosConsulta.add(btnProdutosConsultaConsultar);
 
         JScrollPane scrollPane_3 = new JScrollPane();
@@ -497,7 +494,7 @@ public class Tela extends JFrame {
 
         JLabel lblTiposCadastroDescricao = new JLabel("Descrição");
         lblTiposCadastroDescricao.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        lblTiposCadastroDescricao.setBounds(10, 85, 67, 25);
+        lblTiposCadastroDescricao.setBounds(10, 85, 116, 25);
         tabTiposCadastro.add(lblTiposCadastroDescricao);
 
         JScrollPane scrollPane_4 = new JScrollPane();
@@ -512,7 +509,7 @@ public class Tela extends JFrame {
 
         JButton btnTiposCadastroCadastrarTipo = new JButton("Cadastrar Tipo");
         btnTiposCadastroCadastrarTipo.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        btnTiposCadastroCadastrarTipo.setBounds(89, 285, 131, 43);
+        btnTiposCadastroCadastrarTipo.setBounds(89, 279, 131, 43);
         tabTiposCadastro.add(btnTiposCadastroCadastrarTipo);
 
         JPanel tabTiposConsulta = new JPanel();
@@ -549,7 +546,7 @@ public class Tela extends JFrame {
 
         JButton btnTiposConsultaExcluirTipo = new JButton("Excluir tipo selecionado");
         btnTiposConsultaExcluirTipo.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        btnTiposConsultaExcluirTipo.setBounds(204, 6, 171, 27);
+        btnTiposConsultaExcluirTipo.setBounds(183, 6, 192, 27);
         tabTiposConsulta.add(btnTiposConsultaExcluirTipo);
 
         TipoProdutoController tPCont = new TipoProdutoController(tfTiposCadastroCodigo, tfTiposCadastroNome, taTiposCadastroDescricao);
