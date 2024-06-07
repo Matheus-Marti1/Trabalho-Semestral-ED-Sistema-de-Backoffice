@@ -79,7 +79,6 @@ public class ProdutoController implements ActionListener {
 	}
 
     public void cadastro() throws IOException {
-        preencheComboBox();
         int codIdentificador = Integer.parseInt(tfProdutoCodigo.getText());
         if (codigoExiste(codIdentificador)) {
             JOptionPane.showMessageDialog(null, "Código de Identificador já Cadastrado");
@@ -117,6 +116,8 @@ public class ProdutoController implements ActionListener {
 				linha = buffer.readLine();
 			}
 			buffer.close();
+		}
+  	}
 
     private List<TipoProduto> listarTipoProduto() throws FileNotFoundException, IOException {
         //Criação da lista de objetos TipoProduto
@@ -144,6 +145,7 @@ public class ProdutoController implements ActionListener {
             isr.close();
             fis.close();
 		}
+		return listaTipos;
 	}
 
     private boolean codigoExiste(int codIdentificador) throws IOException {
