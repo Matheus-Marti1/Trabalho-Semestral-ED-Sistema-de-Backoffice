@@ -78,51 +78,30 @@ public class ProdutoController implements ActionListener {
 
 	}
 
-	private void cadastro() throws IOException {
-		List<TipoProduto> listaTipos = new ArrayList<>();
-		listaTipos = listarTipoProduto();
+    public void cadastro() throws IOException {
+        preencheComboBox();
+        int codIdentificador = Integer.parseInt(tfProdutoCodigo.getText());
+        if (codigoExiste(codIdentificador)) {
+            JOptionPane.showMessageDialog(null, "Código de Identificador já Cadastrado");
+            return;
+        }
 
-		// Remove todos os dados do comboboc
-		cbProdutosCadastroTipo.removeAll();
+        Produto prod = new Produto();
+        prod.setCodigo(codIdentificador);
+        
+        prod.setDescricao(taProdutosCadastroDescricao.getText());
+        prod.setCodigo(1);
+        prod.setNome("a");
+        prod.setValor(1.0);
+        prod.setQuantidadeEstoque(10);
+        prod.setTipoProduto(0);
+        
 
-		for (TipoProduto tP : listaTipos) {
-			cbProdutosCadastroTipo.addItem(tP);
-		}
+        cadastraProduto(prod.toString());
+        JOptionPane.showMessageDialog(null, "Produto " + prod.getNome() + " cadastrado com sucesso!");
+    }
 
-	}
-
-	private List<TipoProduto> listarTipoProduto() throws FileNotFoundException, IOException {
-		// Criação da lista de objetos TipoProduto
-		List<TipoProduto> listaTipos = new ArrayList<>();
-
-		TipoProduto tipoProd = new TipoProduto();
-
-		// Obtém o caminho do diretório atual
-		String currentDirectory = new File(".").getCanonicalPath();
-		String path = currentDirectory + File.separator + "SistemaBackoffice";
-		File arq = new File(path, "tipoProduto.csv");
-		if (arq.exists() && arq.isFile()) {
-			FileInputStream fis = new FileInputStream(arq);
-			InputStreamReader isr = new InputStreamReader(fis);
-			BufferedReader buffer = new BufferedReader(isr);
-			String linha = buffer.readLine();
-			while (linha != null) {
-				String[] vetLinha = linha.split(";");
-				tipoProd.setCodIdentificador(Integer.parseInt(vetLinha[0]));
-				tipoProd.setNome(vetLinha[1]);
-				tipoProd.setDescricao(vetLinha[0]);
-				linha = buffer.readLine();
-
-				listaTipos.add(tipoProd);
-			}
-			buffer.close();
-			isr.close();
-			fis.close();
-		}
-		return listaTipos;
-	}
-
-	private void carregarComboBox() throws IOException {
+  	private void carregarComboBox() throws IOException {
 		String currentDirectory = new File(".").getCanonicalPath();
 		String path = currentDirectory + File.separator + "SistemaBackoffice";
 		File arq = new File(path, "tipoProduto.csv");
@@ -138,18 +117,76 @@ public class ProdutoController implements ActionListener {
 				linha = buffer.readLine();
 			}
 			buffer.close();
+
+    private List<TipoProduto> listarTipoProduto() throws FileNotFoundException, IOException {
+        //Criação da lista de objetos TipoProduto
+        List<TipoProduto> listaTipos = new ArrayList<>();
+
+        // Obtém o caminho do diretório atual
+        String currentDirectory = new File(".").getCanonicalPath();
+        String path = currentDirectory + File.separator + "SistemaBackoffice";
+        File arq = new File(path, "produto.csv");
+        if (arq.exists() && arq.isFile()) {
+            FileInputStream fis = new FileInputStream(arq);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader buffer = new BufferedReader(isr);
+            String linha = buffer.readLine();
+            while (linha != null) {
+                TipoProduto tipoProd = new TipoProduto();
+                String[] vetLinha = linha.split(";");
+                tipoProd.setNome(vetLinha[0]);
+                tipoProd.setCodIdentificador(Integer.parseInt(vetLinha[1]));
+                tipoProd.setDescricao(vetLinha[2]);
+                listaTipos.add(tipoProd);
+                linha = buffer.readLine();
+            }
+            buffer.close();
             isr.close();
             fis.close();
 		}
 	}
 
-	private boolean codigoExiste(int codIdentificador) throws IOException {
-		return false;
-	}
+    private boolean codigoExiste(int codIdentificador) throws IOException {
+        String currentDirectory = new File(".").getCanonicalPath();
+        String path = currentDirectory + File.separator + "SistemaBackoffice" + File.separator + "produto.csv";
+        File arq = new File(path);
+        if (!arq.exists()) {
+            return false;
+        }
 
-	private void cadastraProduto(String csvProduto) throws IOException {
+        BufferedReader buffer = new BufferedReader(new FileReader(arq));
+        String line;
+        while ((line = buffer.readLine()) != null) {
+            String[] parts = line.split(";");
+            if (Integer.parseInt(parts[0]) == codIdentificador) {
+                buffer.close();
+                return true;
+            }
+        }
+        buffer.close();
+        return false;
+    }
 
-	}
+    private void cadastraProduto(String csvProduto) throws IOException {
+// Obtém o caminho do diretório atual
+        String currentDirectory = new File(".").getCanonicalPath();
+        String path = currentDirectory + File.separator + "SistemaBackoffice";
+        File dir = new File(path);
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+        File arq = new File(path, "produto.csv");
+        boolean existe = false;
+        if (arq.exists()) {
+            existe = true;
+        }
+        FileWriter fw = new FileWriter(arq, existe);
+        PrintWriter pw = new PrintWriter(fw);
+        pw.write(csvProduto + "\r\n");
+        pw.flush();
+        pw.close();
+        fw.close();
+    }
 
 	private void consulta() throws IOException {
 

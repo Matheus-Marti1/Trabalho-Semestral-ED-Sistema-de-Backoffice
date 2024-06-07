@@ -6,7 +6,7 @@ public class Produto {
     private double valor;
     private String descricao;
     private int quantidadeEstoque;
-    private TipoProduto tipoProduto;
+    private int tipoProduto;
 
     public int getCodigo() {
         return codigo;
@@ -48,16 +48,16 @@ public class Produto {
         this.quantidadeEstoque = quantidadeEstoque;
     }
 
-    public TipoProduto getTipoProduto() {
+    public int getTipoProduto() {
         return tipoProduto;
     }
 
-    public void setTipoProduto(TipoProduto tipoProduto) {
+    public void setTipoProduto(int tipoProduto) {
         this.tipoProduto = tipoProduto;
     }
 
     @Override
     public String toString() {
-        return getCodigo() + ";" + getNome() + ";" + getValor() + ";" + getDescricao() + ";" + getQuantidadeEstoque() + ";" + getTipoProduto().toString();
+        return getCodigo() + ";" + getNome() + ";" + getValor() + ";" + getDescricao() + ";" + getQuantidadeEstoque() + ";" + getTipoProduto();
     }
 }
