@@ -14,6 +14,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComboBox;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
@@ -31,16 +32,25 @@ public class ProdutoController implements ActionListener {
     private JComboBox<Object> cbProdutosCadastroTipo;
     private JSpinner spProdutosCadastroQtd;
     private JTextField tfProdutoCodigo;
+    private JComboBox<Object> cbConsultaProdutoTipo;
+    private JList<Object> listaProdutoConsulta;
+    private ArrayList<String>[] listProd;
 
-    public ProdutoController(JTextField tfCadastroProdutosNome, JTextField tfCadastroProdutosValor,
-            JTextArea taProdutosCadastroDescricao1, JComboBox<Object> cbProdutosCadastroTipo, JSpinner spProdutosCadastroQtd,
-            JTextField tfProdutosCadastroCodigo) {
+    public ProdutoController(JTextField tfCadastroProdutosNome, JTextField tfCadastroProdutosValor, JTextArea taProdutosCadastroDescricao1, JComboBox<Object> cbProdutosCadastroTipo, JSpinner spProdutosCadastroQtd, JTextField tfProdutosCadastroCodigo, JComboBox<Object> cbProdutosConsultaTipo, JList<Object> listaProdutosConsulta) {
         this.tfProdutoCadastroNome = tfCadastroProdutosNome;
         this.tfProdutoCadastroValor = tfCadastroProdutosValor;
         this.taProdutosCadastroDescricao = taProdutosCadastroDescricao1;
         this.cbProdutosCadastroTipo = cbProdutosCadastroTipo;
         this.spProdutosCadastroQtd = spProdutosCadastroQtd;
         this.tfProdutoCodigo = tfProdutosCadastroCodigo;
+        this.cbConsultaProdutoTipo = cbProdutosConsultaTipo;
+        this.listaProdutoConsulta = listaProdutosConsulta;
+
+        try {
+            carregarComboBoxConsulta();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -53,7 +63,7 @@ public class ProdutoController implements ActionListener {
                 e1.printStackTrace();
             }
         }
-        if (cmd.equals("Consultar")) {
+        if (cmd.equals("Consultar produtos")) {
             try {
                 consulta();
             } catch (IOException e1) {
@@ -71,6 +81,7 @@ public class ProdutoController implements ActionListener {
         if (cmd.equals("Recarregar")) {
             try {
                 carregarComboBox();
+                carregarComboBoxConsulta();
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
@@ -84,7 +95,7 @@ public class ProdutoController implements ActionListener {
         prod.setDescricao(taProdutosCadastroDescricao.getText());
         prod.setValor(Double.parseDouble(tfProdutoCadastroValor.getText()));
         prod.setQuantidadeEstoque((Integer) spProdutosCadastroQtd.getValue());
-        
+
         String codIdent = tfProdutoCodigo.getText();
         String codIdentTipo = buscaIdTipo();
         String uniao = codIdentTipo + codIdent;
@@ -93,7 +104,7 @@ public class ProdutoController implements ActionListener {
             JOptionPane.showMessageDialog(null, "Código de Identificador já Cadastrado");
             return;
         }
-        
+
         prod.setCodigo(codIdentificador);
         prod.setTipoProduto(Integer.parseInt(codIdentTipo));
         cadastraProduto(prod.toString());
@@ -123,7 +134,7 @@ public class ProdutoController implements ActionListener {
             buffer.close();
         }
     }
-    
+
     private String buscaIdTipo() throws IOException {
         String cbValor = cbProdutosCadastroTipo.getSelectedItem().toString();
         // Obtém o caminho do diretório atual
@@ -191,18 +202,31 @@ public class ProdutoController implements ActionListener {
         fw.close();
     }
 
-    private void consulta() throws IOException {
-
+    private void carregarComboBoxConsulta() throws FileNotFoundException, IOException {
+        String currentDirectory = new File(".").getCanonicalPath();
+        String path = currentDirectory + File.separator + "SistemaBackoffice";
+        File arq = new File(path, "tipoProduto.csv");
+        if (arq.exists() && arq.isFile()) {
+            FileInputStream fis = new FileInputStream(arq);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader buffer = new BufferedReader(isr);
+            String linha = buffer.readLine();
+            cbConsultaProdutoTipo.removeAllItems();
+            while (linha != null) {
+                String[] vetLinha = linha.split(";");
+                cbConsultaProdutoTipo.addItem(vetLinha[1]);
+                linha = buffer.readLine();
+            }
+            buffer.close();
+        }
     }
 
-    private Produto buscaProduto(Produto prod) throws IOException {
-        return null;
+    private void consulta() throws IOException {
+
     }
 
     private void excluir() throws IOException {
 
     }
-
-    
 
 }

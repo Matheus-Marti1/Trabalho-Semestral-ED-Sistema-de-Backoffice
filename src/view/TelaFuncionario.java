@@ -442,7 +442,7 @@ public class TelaFuncionario extends JFrame {
 		tabProdutosConsulta.add(btnConsultaProdutosExcluir);
 
 		ProdutoController prodCont = new ProdutoController(tfProdutosCadastroNome, tfProdutosCadastroValor,
-				taProdutosCadastroDescricao, cbProdutosCadastroTipo, spProdutosCadastroQtd, tfProdutosCadastroCodigo);
+				taProdutosCadastroDescricao, cbProdutosCadastroTipo, spProdutosCadastroQtd, tfProdutosCadastroCodigo, cbProdutosConsultaTipo, listaProdutosConsulta);
 		btnProdutosCadastroCadastrar.addActionListener(prodCont);
 		btnProdutosConsultaConsultar.addActionListener(prodCont);
 		btnConsultaProdutosExcluir.addActionListener(prodCont);
@@ -540,13 +540,13 @@ public class TelaFuncionario extends JFrame {
 		tabTiposConsulta.add(btnTiposConsultaExcluirTipo);
 
 		ProdutoController pCont = new ProdutoController(tfProdutosCadastroNome, tfProdutosCadastroValor,
-				taProdutosCadastroDescricao, cbProdutosCadastroTipo, spProdutosCadastroQtd, tfProdutosCadastroCodigo);
+				taProdutosCadastroDescricao, cbProdutosCadastroTipo, spProdutosCadastroQtd, tfProdutosCadastroCodigo, cbProdutosConsultaTipo, listaProdutosConsulta);
 
 		JButton btnProdutosCadastroCarregarCB = new JButton("Recarregar");
 		btnProdutosCadastroCarregarCB.setBounds(327, 315, 93, 25);
 		tabProdutosCadastro.add(btnProdutosCadastroCarregarCB);
 		TipoProdutoController tPCont = new TipoProdutoController(tfTiposCadastroCodigo, tfTiposCadastroNome,
-				taTiposCadastroDescricao);
+				taTiposCadastroDescricao, listaTiposConsultaTipos, listaTiposConsultaProdutos);
 		btnTiposCadastroCadastrarTipo.addActionListener(tPCont);
 		btnTiposConsultaExcluirTipo.addActionListener(tPCont);
 		btnProdutosCadastroCarregarCB.addActionListener(pCont);
