@@ -374,6 +374,10 @@ public class TelaFuncionario extends JFrame {
 		tabProdutosCadastro.add(lblProdutosCadastroTipo);
 
 		JComboBox<Object> cbProdutosCadastroTipo = new JComboBox<Object>();
+		
+		JButton btnProdutosCadastroCarregarCB = new JButton("Recarregar");
+		btnProdutosCadastroCarregarCB.setBounds(327, 315, 93, 25);
+		tabProdutosCadastro.add(btnProdutosCadastroCarregarCB);
 
 		cbProdutosCadastroTipo.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cbProdutosCadastroTipo.setToolTipText("Selecione o tipo do produto");
@@ -446,6 +450,7 @@ public class TelaFuncionario extends JFrame {
 		btnProdutosCadastroCadastrar.addActionListener(prodCont);
 		btnProdutosConsultaConsultar.addActionListener(prodCont);
 		btnConsultaProdutosExcluir.addActionListener(prodCont);
+		btnProdutosCadastroCarregarCB.addActionListener(prodCont);
 
 		JPanel tabTipos = new JPanel();
 		tabbedPane.addTab("Tipos", null, tabTipos, null);
@@ -539,16 +544,11 @@ public class TelaFuncionario extends JFrame {
 		btnTiposConsultaExcluirTipo.setBounds(183, 6, 192, 27);
 		tabTiposConsulta.add(btnTiposConsultaExcluirTipo);
 
-		ProdutoController pCont = new ProdutoController(tfProdutosCadastroNome, tfProdutosCadastroValor,
-				taProdutosCadastroDescricao, cbProdutosCadastroTipo, spProdutosCadastroQtd, tfProdutosCadastroCodigo, cbProdutosConsultaTipo, listaProdutosConsulta);
-
-		JButton btnProdutosCadastroCarregarCB = new JButton("Recarregar");
-		btnProdutosCadastroCarregarCB.setBounds(327, 315, 93, 25);
-		tabProdutosCadastro.add(btnProdutosCadastroCarregarCB);
+		
 		TipoProdutoController tPCont = new TipoProdutoController(tfTiposCadastroCodigo, tfTiposCadastroNome,
 				taTiposCadastroDescricao, listaTiposConsultaTipos, listaTiposConsultaProdutos);
 		btnTiposCadastroCadastrarTipo.addActionListener(tPCont);
 		btnTiposConsultaExcluirTipo.addActionListener(tPCont);
-		btnProdutosCadastroCarregarCB.addActionListener(pCont);
+		
 	}
 }

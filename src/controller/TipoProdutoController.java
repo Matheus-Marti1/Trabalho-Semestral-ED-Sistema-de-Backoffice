@@ -31,7 +31,6 @@ public class TipoProdutoController implements ActionListener {
     private ArrayList<String>[] listTipo;
 
     public TipoProdutoController(JTextField tfTipoProdutoCodIdentificador, JTextField tfTipoProdutoNome, JTextArea taTipoProdutoDescricao, JList<Object> listaTiposConsultaTipos, JList<Object> listaTiposConsultaProdutos) {
-        super();
         this.tfTipoProdutoCodIdentificador = tfTipoProdutoCodIdentificador;
         this.tfTipoProdutoNome = tfTipoProdutoNome;
         this.taTipoProdutoDescricao = taTipoProdutoDescricao;

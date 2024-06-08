@@ -12,17 +12,16 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.List;
+
+import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
-
 import javax.swing.JTextField;
 
 import model.Produto;
-import model.TipoProduto;
 
 public class ProdutoController implements ActionListener {
 
@@ -32,8 +31,8 @@ public class ProdutoController implements ActionListener {
     private JComboBox<Object> cbProdutosCadastroTipo;
     private JSpinner spProdutosCadastroQtd;
     private JTextField tfProdutoCodigo;
-    private JComboBox<Object> cbConsultaProdutoTipo;
-    private JList<Object> listaProdutoConsulta;
+    private JComboBox<Object> cbProdutosConsultaTipo;
+    private JList<Object> listaProdutosConsulta;
     private ArrayList<String>[] listProd;
 
     public ProdutoController(JTextField tfCadastroProdutosNome, JTextField tfCadastroProdutosValor, JTextArea taProdutosCadastroDescricao1, JComboBox<Object> cbProdutosCadastroTipo, JSpinner spProdutosCadastroQtd, JTextField tfProdutosCadastroCodigo, JComboBox<Object> cbProdutosConsultaTipo, JList<Object> listaProdutosConsulta) {
@@ -43,8 +42,8 @@ public class ProdutoController implements ActionListener {
         this.cbProdutosCadastroTipo = cbProdutosCadastroTipo;
         this.spProdutosCadastroQtd = spProdutosCadastroQtd;
         this.tfProdutoCodigo = tfProdutosCadastroCodigo;
-        this.cbConsultaProdutoTipo = cbProdutosConsultaTipo;
-        this.listaProdutoConsulta = listaProdutosConsulta;
+        this.cbProdutosConsultaTipo = cbProdutosConsultaTipo;
+        this.listaProdutosConsulta = listaProdutosConsulta;
 
         try {
             carregarComboBoxConsulta();
@@ -97,7 +96,7 @@ public class ProdutoController implements ActionListener {
         prod.setQuantidadeEstoque((Integer) spProdutosCadastroQtd.getValue());
 
         String codIdent = tfProdutoCodigo.getText();
-        String codIdentTipo = buscaIdTipo();
+        String codIdentTipo = buscaIdTipo((String) cbProdutosCadastroTipo.getSelectedItem());
         String uniao = codIdentTipo + codIdent;
         int codIdentificador = Integer.parseInt(uniao);
         if (codigoExiste(codIdentificador)) {
@@ -135,8 +134,8 @@ public class ProdutoController implements ActionListener {
         }
     }
 
-    private String buscaIdTipo() throws IOException {
-        String cbValor = cbProdutosCadastroTipo.getSelectedItem().toString();
+    private String buscaIdTipo(String cbProdutos) throws IOException {
+        String cbValor = cbProdutos;
         // Obtém o caminho do diretório atual
         String currentDirectory = new File(".").getCanonicalPath();
         String path = currentDirectory + File.separator + "SistemaBackoffice";
@@ -211,10 +210,10 @@ public class ProdutoController implements ActionListener {
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader buffer = new BufferedReader(isr);
             String linha = buffer.readLine();
-            cbConsultaProdutoTipo.removeAllItems();
+            cbProdutosConsultaTipo.removeAllItems();
             while (linha != null) {
                 String[] vetLinha = linha.split(";");
-                cbConsultaProdutoTipo.addItem(vetLinha[1]);
+                cbProdutosConsultaTipo.addItem(vetLinha[1]);
                 linha = buffer.readLine();
             }
             buffer.close();
@@ -222,7 +221,28 @@ public class ProdutoController implements ActionListener {
     }
 
     private void consulta() throws IOException {
-
+    	String currentDirectory = new File(".").getCanonicalPath();
+        String path = currentDirectory + File.separator + "SistemaBackoffice";
+        File arq = new File(path, "produto.csv");
+        String tipoProduto = buscaIdTipo((String) cbProdutosConsultaTipo.getSelectedItem());
+        if (arq.exists() && arq.isFile()) {
+            FileInputStream fis = new FileInputStream(arq);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader buffer = new BufferedReader(isr);
+            String linha = buffer.readLine();
+            DefaultListModel<Object> prodConsListModel = new DefaultListModel<>();
+            while (linha != null) {
+                String[] vetLinha = linha.split(";");
+                if (vetLinha[5].equals(tipoProduto)) {
+                	prodConsListModel.addElement("Id: " + vetLinha[0] + "; Produto: " + vetLinha[1] + "; Valor: R$" + vetLinha[2] + "; Descrição: " + vetLinha[3] + "; Quantidade em estoque: " + vetLinha[4]);
+                }
+                linha = buffer.readLine();
+            }
+            listaProdutosConsulta.setModel(prodConsListModel);
+            buffer.close();
+            isr.close();
+            fis.close();
+        }
     }
 
     private void excluir() throws IOException {
