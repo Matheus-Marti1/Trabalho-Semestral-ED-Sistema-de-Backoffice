@@ -11,11 +11,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
-
 import javax.swing.JTextField;
 import javax.swing.ListModel;
 
@@ -36,7 +36,7 @@ public class TipoProdutoController implements ActionListener {
         this.taTipoProdutoDescricao = taTipoProdutoDescricao;
         this.listaTipoConsultaTipo = listaTiposConsultaTipos;
         this.listaTiposConsultaProdutos = listaTiposConsultaProdutos;
-
+        
         try {
             carregarTiposDeProdutos();
             montarTabelaDeEspalhamento();
@@ -65,7 +65,7 @@ public class TipoProdutoController implements ActionListener {
                 e1.printStackTrace();
             }
         }
-        if (cmd.equals("Consultar")) {
+        if (cmd.equals("Recarregar lista")) {
             try {
                 carregarTiposDeProdutos();
                 montarTabelaDeEspalhamento();

@@ -541,14 +541,20 @@ public class TelaFuncionario extends JFrame {
 
 		JButton btnTiposConsultaExcluirTipo = new JButton("Excluir tipo selecionado");
 		btnTiposConsultaExcluirTipo.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnTiposConsultaExcluirTipo.setBounds(183, 6, 192, 27);
+		btnTiposConsultaExcluirTipo.setBounds(194, 6, 181, 27);
 		tabTiposConsulta.add(btnTiposConsultaExcluirTipo);
 
 		
 		TipoProdutoController tPCont = new TipoProdutoController(tfTiposCadastroCodigo, tfTiposCadastroNome,
 				taTiposCadastroDescricao, listaTiposConsultaTipos, listaTiposConsultaProdutos);
+		
+		JButton btnTiposConsultaRecarregar = new JButton("Recarregar lista");
+		btnTiposConsultaRecarregar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnTiposConsultaRecarregar.setBounds(59, 6, 123, 27);
+		tabTiposConsulta.add(btnTiposConsultaRecarregar);
 		btnTiposCadastroCadastrarTipo.addActionListener(tPCont);
 		btnTiposConsultaExcluirTipo.addActionListener(tPCont);
+		btnTiposConsultaRecarregar.addActionListener(tPCont);
 		
 	}
 }
