@@ -12,7 +12,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 public class Principal extends JFrame {
 
@@ -91,6 +91,7 @@ public class Principal extends JFrame {
 				telaCliente.setVisible(true);
 				setVisible(false);
 			}
+				
 		});
 		btnLoginCliente.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		btnLoginCliente.setBounds(113, 45, 131, 50);
@@ -102,5 +103,6 @@ public class Principal extends JFrame {
 				setVisible(false);
 			}
 		});
+	
 	}
 }

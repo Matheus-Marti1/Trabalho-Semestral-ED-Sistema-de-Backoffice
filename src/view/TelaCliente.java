@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -19,8 +21,10 @@ import javax.swing.JTabbedPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
-public class TelaCliente extends JFrame {
+import controller.ClienteProdutosController;
 
+public class TelaCliente extends JFrame {
+	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
@@ -57,41 +61,60 @@ public class TelaCliente extends JFrame {
 		cbTiposProdutosCompra.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 
 		JButton btnNewButton = new JButton("Carregar produtos");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnNewButton.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 
 		JButton btnNewButton_1 = new JButton("Adicionar ao carrinho");
 		btnNewButton_1.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 
 		JScrollPane scrollPane = new JScrollPane();
+		
+		JButton btnCarregarCategorias = new JButton("Carregar categorias");
+		btnCarregarCategorias.setBounds(327, 315, 93, 25);
+		
+		ClienteProdutosController clienteProdController = new ClienteProdutosController(cbTiposProdutosCompra);
+		btnCarregarCategorias.addActionListener(clienteProdController);
+		
+		
 		GroupLayout gl_tabProdutos = new GroupLayout(tabProdutos);
-		gl_tabProdutos.setHorizontalGroup(gl_tabProdutos.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_tabProdutos.createSequentialGroup().addContainerGap()
-						.addGroup(gl_tabProdutos.createParallelGroup(Alignment.TRAILING)
-								.addGroup(gl_tabProdutos.createSequentialGroup().addComponent(scrollPane)
-										.addPreferredGap(ComponentPlacement.UNRELATED)
-										.addComponent(
-												btnNewButton_1, GroupLayout.PREFERRED_SIZE, 177,
-												GroupLayout.PREFERRED_SIZE)
-										.addContainerGap())
-								.addGroup(gl_tabProdutos.createSequentialGroup()
-										.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 59,
-												GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(cbTiposProdutosCompra, 0, 255, Short.MAX_VALUE)
-										.addPreferredGap(ComponentPlacement.RELATED).addComponent(btnNewButton)
-										.addGap(549)))));
-		gl_tabProdutos.setVerticalGroup(gl_tabProdutos.createParallelGroup(Alignment.TRAILING).addGroup(gl_tabProdutos
-				.createSequentialGroup().addContainerGap()
-				.addGroup(gl_tabProdutos.createParallelGroup(Alignment.BASELINE)
+		gl_tabProdutos.setHorizontalGroup(
+			gl_tabProdutos.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_tabProdutos.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_tabProdutos.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_tabProdutos.createSequentialGroup()
+							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap())
+						.addGroup(gl_tabProdutos.createSequentialGroup()
+							.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(cbTiposProdutosCompra, 0, 309, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnNewButton)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(btnCarregarCategorias)
+							.addGap(450))))
+		);
+		gl_tabProdutos.setVerticalGroup(
+			gl_tabProdutos.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_tabProdutos.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_tabProdutos.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(cbTiposProdutosCompra, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnNewButton))
-				.addPreferredGap(ComponentPlacement.UNRELATED)
-				.addGroup(gl_tabProdutos.createParallelGroup(Alignment.LEADING)
+						.addComponent(cbTiposProdutosCompra, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnNewButton)
+						.addComponent(btnCarregarCategorias))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_tabProdutos.createParallelGroup(Alignment.LEADING)
 						.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
-						.addComponent(scrollPane))
-				.addContainerGap()));
+						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap())
+		);
 
 		JList<Object> listaProdutosCompra = new JList<Object>();
 		scrollPane.setViewportView(listaProdutosCompra);
