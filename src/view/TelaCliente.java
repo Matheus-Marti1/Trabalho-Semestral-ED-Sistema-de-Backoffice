@@ -21,6 +21,10 @@ import javax.swing.border.EmptyBorder;
 
 import controller.ProdutoController;
 import controller.CarrinhoController;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormSpecs;
+import com.jgoodies.forms.layout.RowSpec;
 
 public class TelaCliente extends JFrame {
 
@@ -54,17 +58,20 @@ public class TelaCliente extends JFrame {
         tabbedPane.addTab("Produtos", null, tabProdutos, null);
 
         JLabel lblNewLabel = new JLabel("Categoria");
+        lblNewLabel.setBounds(10, 16, 59, 20);
         lblNewLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         
         JComboBox<Object> cbCategoriaProdutosCliente = new JComboBox<Object>();
+        cbCategoriaProdutosCliente.setBounds(73, 11, 470, 31);
         cbCategoriaProdutosCliente.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 
         JButton btnCarregarProdutos = new JButton("Carregar produtos");
-        btnCarregarProdutos.setBounds(850, 20, 400, 42);
-        btnCarregarProdutos.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        btnCarregarProdutos.setBounds(549, 11, 177, 31);
+        btnCarregarProdutos.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         btnCarregarProdutos.setActionCommand("Carregar produtos");
 
         JButton btnAdicionarCarrinho = new JButton("Adicionar ao carrinho");
+        btnAdicionarCarrinho.setBounds(810, 51, 177, 29);
         btnAdicionarCarrinho.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         btnAdicionarCarrinho.setActionCommand("Adicionar ao carrinho");
         
@@ -77,62 +84,28 @@ public class TelaCliente extends JFrame {
         btnLimparCarrinho.setActionCommand("Limpar carrinho");
 
         JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setBounds(919, 11, 2, 2);
 
         JList<Object> listaProdutosCliente = new JList<Object>();
+        listaProdutosCliente.setBounds(10, 52, 774, 431);
         ProdutoController prodCont = new ProdutoController(null, null, null, null, null, null, cbCategoriaProdutosCliente, listaProdutosCliente);
         btnCarregarProdutos.addActionListener(prodCont);
         
         JList<Object> listaCarrinhoCompras = new JList<Object>();
-        CarrinhoController ClienteCarrinhoController = new CarrinhoController(listaProdutosCliente, listaCarrinhoCompras);       
+        JLabel lblValorTotal = new JLabel("Valor Total: R$ 0.00");
+        lblValorTotal.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        
+        CarrinhoController ClienteCarrinhoController = new CarrinhoController(listaProdutosCliente, listaCarrinhoCompras, lblValorTotal);       
         btnAdicionarCarrinho.addActionListener(ClienteCarrinhoController);    
         btnExcluirProdutoCarrinho.addActionListener(ClienteCarrinhoController);
         btnLimparCarrinho.addActionListener(ClienteCarrinhoController);
-
-        GroupLayout gl_tabProdutos = new GroupLayout(tabProdutos);
-        gl_tabProdutos.setHorizontalGroup(
-        	gl_tabProdutos.createParallelGroup(Alignment.TRAILING)
-        		.addGroup(gl_tabProdutos.createSequentialGroup()
-        			.addContainerGap()
-        			.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(cbCategoriaProdutosCliente, 0, 311, Short.MAX_VALUE)
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(btnCarregarProdutos)
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addGap(444))
-        		.addGroup(gl_tabProdutos.createSequentialGroup()
-        			.addGroup(gl_tabProdutos.createParallelGroup(Alignment.LEADING)
-        				.addGroup(gl_tabProdutos.createSequentialGroup()
-        					.addContainerGap(923, Short.MAX_VALUE)
-        					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        					.addPreferredGap(ComponentPlacement.UNRELATED))
-        				.addGroup(gl_tabProdutos.createSequentialGroup()
-        					.addGap(149)
-        					.addComponent(listaProdutosCliente, GroupLayout.PREFERRED_SIZE, 533, GroupLayout.PREFERRED_SIZE)
-        					.addPreferredGap(ComponentPlacement.RELATED)))
-        			.addComponent(btnAdicionarCarrinho, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
-        			.addContainerGap())
-        );
-        gl_tabProdutos.setVerticalGroup(
-        	gl_tabProdutos.createParallelGroup(Alignment.TRAILING)
-        		.addGroup(gl_tabProdutos.createSequentialGroup()
-        			.addContainerGap()
-        			.addGroup(gl_tabProdutos.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        				.addComponent(cbCategoriaProdutosCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(btnCarregarProdutos)
-        			.addGroup(gl_tabProdutos.createParallelGroup(Alignment.LEADING)
-        				.addGroup(gl_tabProdutos.createSequentialGroup()
-        					.addPreferredGap(ComponentPlacement.UNRELATED)
-        					.addGroup(gl_tabProdutos.createParallelGroup(Alignment.LEADING)
-        						.addComponent(btnAdicionarCarrinho, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
-        						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-        				.addGroup(gl_tabProdutos.createSequentialGroup()
-        					.addGap(32)
-        					.addComponent(listaProdutosCliente, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)))
-        			.addGap(294))
-   ));
-        tabProdutos.setLayout(gl_tabProdutos);
+        tabProdutos.setLayout(null);
+        tabProdutos.add(lblNewLabel);
+        tabProdutos.add(cbCategoriaProdutosCliente);
+        tabProdutos.add(btnCarregarProdutos);
+        tabProdutos.add(listaProdutosCliente);
+        tabProdutos.add(scrollPane);
+        tabProdutos.add(btnAdicionarCarrinho);
         GroupLayout gl_contentPane = new GroupLayout(contentPane);
         gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
                 .addGroup(gl_contentPane.createSequentialGroup().addGap(10)
@@ -146,9 +119,6 @@ public class TelaCliente extends JFrame {
         tabbedPane.addTab("Carrinho", null, tabCarrinho, null);
 
         JScrollPane scrollPane_1 = new JScrollPane();
-
-        JLabel lblValorTotal = new JLabel("Valor total: R$");
-        lblValorTotal.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 
         JButton btnCarrinhoCheckout = new JButton("Checkout");
         btnCarrinhoCheckout.setFont(new Font("Segoe UI", Font.PLAIN, 14));
