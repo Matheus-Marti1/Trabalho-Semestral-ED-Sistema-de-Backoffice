@@ -10,10 +10,10 @@ import java.io.InputStreamReader;
 import javax.swing.JComboBox;
 
 
-public class ClienteProdutosController implements ActionListener {
+public class ClienteCategoriasController implements ActionListener {
 	private JComboBox<Object> cbTiposProdutosCompra;
 
-	public ClienteProdutosController(JComboBox<Object> cbTiposProdutosCompra) {
+	public ClienteCategoriasController(JComboBox<Object> cbTiposProdutosCompra) {
 		this.cbTiposProdutosCompra = cbTiposProdutosCompra;
 	}
 

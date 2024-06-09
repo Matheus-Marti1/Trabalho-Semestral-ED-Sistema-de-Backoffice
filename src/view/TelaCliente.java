@@ -21,7 +21,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
-import controller.ClienteProdutosController;
+import controller.ClienteCategoriasController;
 
 public class TelaCliente extends JFrame {
 	
@@ -75,7 +75,7 @@ public class TelaCliente extends JFrame {
 		JButton btnCarregarCategorias = new JButton("Carregar categorias");
 		btnCarregarCategorias.setBounds(327, 315, 93, 25);
 		
-		ClienteProdutosController clienteProdController = new ClienteProdutosController(cbTiposProdutosCompra);
+		ClienteCategoriasController clienteProdController = new ClienteCategoriasController(cbTiposProdutosCompra);
 		btnCarregarCategorias.addActionListener(clienteProdController);
 		
 		
@@ -127,6 +127,7 @@ public class TelaCliente extends JFrame {
 		gl_contentPane.setVerticalGroup(
 				gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane.createSequentialGroup()
 						.addGap(10).addComponent(lblExibirNomeCliente).addGap(14).addComponent(tabbedPane)));
+
 
 		JPanel tabCarrinho = new JPanel();
 		tabbedPane.addTab("Carrinho", null, tabCarrinho, null);
