@@ -57,6 +57,13 @@ public class ProdutoController implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
+		if (cmd.equals("Carregar produtos")) {
+            try {
+            	consulta();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
 		if (cmd.equals("Cadastrar produto")) {
 			try {
 				cadastro();

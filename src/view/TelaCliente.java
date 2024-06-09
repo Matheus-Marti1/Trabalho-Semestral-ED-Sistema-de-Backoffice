@@ -19,7 +19,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
-import controller.ClienteProdutosController;
+import controller.ProdutoController;
 import controller.CarrinhoController;
 
 public class TelaCliente extends JFrame {
@@ -55,11 +55,6 @@ public class TelaCliente extends JFrame {
 
         JLabel lblNewLabel = new JLabel("Categoria");
         lblNewLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-
-        JButton btnCarregarCategorias = new JButton("Carregar categorias");
-        btnCarregarCategorias.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        btnCarregarCategorias.setBounds(850, 20, 400, 42);
-        btnCarregarCategorias.setActionCommand("Carregar categorias");
         
         JComboBox<Object> cbCategoriaProdutosCliente = new JComboBox<Object>();
         cbCategoriaProdutosCliente.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -84,9 +79,8 @@ public class TelaCliente extends JFrame {
         JScrollPane scrollPane = new JScrollPane();
 
         JList<Object> listaProdutosCliente = new JList<Object>();
-        ClienteProdutosController clienteProdController = new ClienteProdutosController(cbCategoriaProdutosCliente, listaProdutosCliente);
-        btnCarregarProdutos.addActionListener(clienteProdController);
-        btnCarregarCategorias.addActionListener(clienteProdController);
+        ProdutoController prodCont = new ProdutoController(null, null, null, null, null, null, cbCategoriaProdutosCliente, listaProdutosCliente);
+        btnCarregarProdutos.addActionListener(prodCont);
         
         JList<Object> listaCarrinhoCompras = new JList<Object>();
         CarrinhoController ClienteCarrinhoController = new CarrinhoController(listaProdutosCliente, listaCarrinhoCompras);       
@@ -105,7 +99,6 @@ public class TelaCliente extends JFrame {
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addComponent(btnCarregarProdutos)
         			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(btnCarregarCategorias, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
         			.addGap(444))
         		.addGroup(gl_tabProdutos.createSequentialGroup()
         			.addGroup(gl_tabProdutos.createParallelGroup(Alignment.LEADING)
@@ -128,7 +121,6 @@ public class TelaCliente extends JFrame {
         				.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         				.addComponent(cbCategoriaProdutosCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         				.addComponent(btnCarregarProdutos)
-        				.addComponent(btnCarregarCategorias))
         			.addGroup(gl_tabProdutos.createParallelGroup(Alignment.LEADING)
         				.addGroup(gl_tabProdutos.createSequentialGroup()
         					.addPreferredGap(ComponentPlacement.UNRELATED)
@@ -139,7 +131,7 @@ public class TelaCliente extends JFrame {
         					.addGap(32)
         					.addComponent(listaProdutosCliente, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)))
         			.addGap(294))
-        );
+   ));
         tabProdutos.setLayout(gl_tabProdutos);
         GroupLayout gl_contentPane = new GroupLayout(contentPane);
         gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
