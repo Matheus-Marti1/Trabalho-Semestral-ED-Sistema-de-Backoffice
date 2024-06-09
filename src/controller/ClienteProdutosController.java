@@ -31,8 +31,35 @@ public class ClienteProdutosController implements ActionListener {
                 ex.printStackTrace();
             }
         }
+        if (cmd.equals("Carregar categorias")) {
+			try {
+				carregarComboBoxCategorias();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
     }
 
+
+    private void carregarComboBoxCategorias() throws IOException {
+		String currentDirectory = new File(".").getCanonicalPath();
+		String path = currentDirectory + File.separator + "SistemaBackoffice";
+		File file = new File(path, "tipoProduto.csv");
+		if (file.exists() && file.isFile()) {
+			FileInputStream fis = new FileInputStream(file);
+			InputStreamReader isr = new InputStreamReader(fis);
+			BufferedReader buffer = new BufferedReader(isr);
+			String line = buffer.readLine();
+			cbCategoriaProdutosCliente.removeAllItems();
+			while (line != null) {
+				String[] vetLine = line.split(";");
+				cbCategoriaProdutosCliente.addItem(vetLine[1]);
+				line = buffer.readLine();
+			}
+			buffer.close();
+		}
+	}
+    
     private String buscaIdCategoria(String cbCategoria) throws IOException {
         String currentDirectory = new File(".").getCanonicalPath();
         String path = currentDirectory + File.separator + "SistemaBackoffice";
