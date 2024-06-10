@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -23,6 +22,7 @@ import model.TipoProduto;
 
 public class TipoProdutoController implements ActionListener {
 
+    //Declaração de variaveis conectada a tela.
     private JTextField tfTipoProdutoCodIdentificador;
     private JTextField tfTipoProdutoNome;
     private JTextArea taTipoProdutoDescricao;
@@ -36,7 +36,8 @@ public class TipoProdutoController implements ActionListener {
         this.taTipoProdutoDescricao = taTipoProdutoDescricao;
         this.listaTipoConsultaTipo = listaTiposConsultaTipos;
         this.listaTiposConsultaProdutos = listaTiposConsultaProdutos;
-        
+
+        //Metodos chamados junto da classe, para montar e carregas os tipos ao mesmo tempo
         try {
             carregarTiposDeProdutos();
             montarTabelaDeEspalhamento();
@@ -86,6 +87,7 @@ public class TipoProdutoController implements ActionListener {
     }
 
     private void cadastro() throws IOException {
+        //Verificação se o código atribuido já não existe, e se existe dispara alerta;
         int codIdentificador = Integer.parseInt(tfTipoProdutoCodIdentificador.getText());
         if (codigoExiste(codIdentificador)) {
             JOptionPane.showMessageDialog(null, "Código de Identificador já Cadastrado");
@@ -160,7 +162,7 @@ public class TipoProdutoController implements ActionListener {
             String linha;
 
             //Inicia a Leitura do Arquivo, e cria um objeto TipoProduto
-        while ((linha = buffer.readLine()) != null) {
+            while ((linha = buffer.readLine()) != null) {
                 String[] parts = linha.split(";");
                 TipoProduto tipoProduto = new TipoProduto();
                 tipoProduto.setCodIdentificador(Integer.parseInt(parts[0]));
@@ -241,8 +243,6 @@ public class TipoProdutoController implements ActionListener {
                 }
                 listaTiposConsultaProdutos.setModel(produtosListModel);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Selecione um tipo de produto.");
         }
     }
 
