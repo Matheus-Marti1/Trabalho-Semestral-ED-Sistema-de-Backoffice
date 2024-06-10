@@ -56,12 +56,11 @@ public class CarrinhoController implements ActionListener {
         if (cmd.equals("Checkout")) {
             TelaCheckOut checkOut = new TelaCheckOut(carrinho);
             checkOut.setVisible(true);
-            
         }
         
     }
 
-	private void adicionarProdutoCarrinho() throws IOException {
+    private void adicionarProdutoCarrinho() throws IOException {
         Object selectedValue = listaProdutos.getSelectedValue();
         if (selectedValue == null) {
             JOptionPane.showMessageDialog(null, "Selecione um produto para adicionar ao carrinho.");
@@ -73,7 +72,25 @@ public class CarrinhoController implements ActionListener {
         String nome = parts[3].trim();
         double valor = Double.parseDouble(parts[5].trim().substring(2).replace(',', '.'));
         String descricao = parts[7].trim();
-        int quantidade = 1;
+        // Verificar quantidade em estoque
+        int quantidadeEmEstoque = Integer.parseInt(parts[9].trim());
+        if (quantidadeEmEstoque <= 0) {
+            JOptionPane.showMessageDialog(null, "Produto fora de estoque.");
+            return;
+        }
+        // Verificar se já existe no carrinho e quantidade disponível em estoque
+        int quantidadeNoCarrinho = 0;
+        for (ProdutoCarrinho produtoCarrinho : carrinho) {
+            if (produtoCarrinho.getId() == id) {
+                quantidadeNoCarrinho = produtoCarrinho.getQuantidade();
+                break;
+            }
+        }
+        if (quantidadeNoCarrinho >= quantidadeEmEstoque) {
+            JOptionPane.showMessageDialog(null, "Quantidade máxima disponível em estoque atingida.");
+            return;
+        }
+        // Adicionar ao carrinho de fato
         for (ProdutoCarrinho produtoCarrinho : carrinho) {
             if (produtoCarrinho.getId() == id) {
                 produtoCarrinho.setQuantidade(produtoCarrinho.getQuantidade() + 1);
@@ -81,7 +98,7 @@ public class CarrinhoController implements ActionListener {
                 return;
             }
         }
-        ProdutoCarrinho novoProduto = new ProdutoCarrinho(id, nome, valor, descricao, quantidade);
+        ProdutoCarrinho novoProduto = new ProdutoCarrinho(id, nome, valor, descricao, 1);
         carrinho.add(novoProduto);
         atualizarCarrinho();
     }
@@ -120,9 +137,9 @@ public class CarrinhoController implements ActionListener {
     private double calcularValorTotal() {
         double total = 0;
         for (ProdutoCarrinho produtoCarrinho : carrinho) {
-            total += produtoCarrinho.getValor() * produtoCarrinho.getQuantidade();
+        	total += produtoCarrinho.getValor() * produtoCarrinho.getQuantidade();
         }
         return total;
     }
-   
+        
 }

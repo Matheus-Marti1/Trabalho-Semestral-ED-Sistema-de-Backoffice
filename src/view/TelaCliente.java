@@ -91,6 +91,7 @@ public class TelaCliente extends JFrame {
 
         JList<Object> listaProdutosCliente = new JList<Object>();
         listaProdutosCliente.setBounds(10, 59, 490, 424);
+        listaProdutosCliente.setFont(new Font("Segoe UI", Font.PLAIN, 10));
         ProdutoController prodCont = new ProdutoController(null, null, null, null, null, null, cbCategoriaProdutosCliente, listaProdutosCliente);
         btnCarregarProdutos.addActionListener(prodCont);
         JLabel lblValorTotal = new JLabel("Valor Total: R$ 0.00");
@@ -104,6 +105,7 @@ public class TelaCliente extends JFrame {
 
         JList<Object> listaCarrinhoCompras = new JList<Object>();
         listaCarrinhoCompras.setBounds(544, 59, 442, 292);
+        listaCarrinhoCompras.setFont(new Font("Segoe UI", Font.PLAIN, 10));
         tabProdutos.add(listaCarrinhoCompras);
 
         CarrinhoController ClienteCarrinhoController = new CarrinhoController(listaProdutosCliente, listaCarrinhoCompras, lblValorTotal);
