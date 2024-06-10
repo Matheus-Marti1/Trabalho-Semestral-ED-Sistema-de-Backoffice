@@ -1,18 +1,21 @@
 package view;
 
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTabbedPane;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.*;
+
+import controller.ClienteController;
 
 public class Principal extends JFrame {
 
@@ -84,18 +87,13 @@ public class Principal extends JFrame {
 		tfLoginClienteNome.setColumns(10);
 
 		JButton btnLoginCliente = new JButton("Entrar");
-		btnLoginCliente.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String nomeCliente = tfLoginClienteNome.getText();
-				TelaCliente telaCliente = new TelaCliente(Principal.this, nomeCliente);
-				telaCliente.setVisible(true);
-				setVisible(false);
-			}
-				
-		});
 		btnLoginCliente.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		btnLoginCliente.setBounds(113, 45, 131, 50);
 		tabCliente.add(btnLoginCliente);
+
+		ClienteController clienteCont = new ClienteController(this, tfLoginClienteNome);
+		btnLoginCliente.addActionListener(clienteCont);
+
 		btnFuncionarioEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaFuncionario telaFun = new TelaFuncionario(Principal.this);
@@ -103,6 +101,5 @@ public class Principal extends JFrame {
 				setVisible(false);
 			}
 		});
-	
 	}
 }
