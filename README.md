@@ -11,4 +11,4 @@ Trabalho Semestral para a matéria de Estrutura de Dados da Fatec ZL.
 -[Matheus Augusto Marti](https://github.com/Matheus-Marti1)
 
 # Diagrama de Classes
-![Diagrama de Classes](images/DiagramadeClasses.png)
+![Diagrama de Classes](images/DiagramaDeClasses.png)
