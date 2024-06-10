@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import model.ProdutoCarrinho;
+import view.TelaCheckOut;
 
 public class CarrinhoController implements ActionListener {
 
@@ -51,10 +52,16 @@ public class CarrinhoController implements ActionListener {
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-        }    
+        }
+        if (cmd.equals("Checkout")) {
+            TelaCheckOut checkOut = new TelaCheckOut(carrinho);
+            checkOut.setVisible(true);
+            
+        }
+        
     }
 
-    private void adicionarProdutoCarrinho() throws IOException {
+	private void adicionarProdutoCarrinho() throws IOException {
         Object selectedValue = listaProdutos.getSelectedValue();
         if (selectedValue == null) {
             JOptionPane.showMessageDialog(null, "Selecione um produto para adicionar ao carrinho.");
@@ -117,4 +124,5 @@ public class CarrinhoController implements ActionListener {
         }
         return total;
     }
+   
 }
