@@ -50,6 +50,7 @@ public class TelaFuncionario extends JFrame {
 	private JTextField tfProdutosCadastroCodigo;
 	private JTextField tfTiposCadastroNome;
 	private JTextField tfTiposCadastroCodigo;
+	private JTextField textFieldCPFouCNPJ;
 
 	public TelaFuncionario(JFrame parentFrame) {
 		setTitle("Sistema Backoffice");
@@ -75,7 +76,7 @@ public class TelaFuncionario extends JFrame {
 		contentPane.add(tabbedPane);
 
 		JPanel tabCliente = new JPanel();
-		tabbedPane.addTab("Cliente", null, tabCliente, "Cadastrar e consultar clientes");
+		tabbedPane.addTab("Clientes", null, tabCliente, "Cadastrar e consultar clientes");
 		tabCliente.setLayout(null);
 
 		JTabbedPane tabClienteSeletor = new JTabbedPane(JTabbedPane.LEFT);
@@ -315,8 +316,41 @@ public class TelaFuncionario extends JFrame {
 		btnClienteJuridicoCadastrar.addActionListener(cjCont);
 		btnClienteJuridicoConsultar.addActionListener(cjCont);
 		btnClienteJuridicoExcluir.addActionListener(cjCont);
+		
+		JPanel tabVendas = new JPanel();
+		tabbedPane.addTab("Vendas", null, tabVendas, "Consultar histórico de compras dos clientes");
+		tabVendas.setLayout(null);
+		
+		JPanel tabVendasClientes = new JPanel();
+		tabVendasClientes.setLayout(null);
+		tabVendasClientes.setBounds(51, 18, 794, 474);
+		tabVendas.add(tabVendasClientes);
+		
+		JLabel lblClienteCPFouCNPJ = new JLabel("CPF ou CNPJ");
+		lblClienteCPFouCNPJ.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblClienteCPFouCNPJ.setBounds(79, 56, 88, 25);
+		tabVendasClientes.add(lblClienteCPFouCNPJ);
+		
+		textFieldCPFouCNPJ = new JTextField();
+		textFieldCPFouCNPJ.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		textFieldCPFouCNPJ.setColumns(10);
+		textFieldCPFouCNPJ.setBounds(177, 53, 367, 31);
+		tabVendasClientes.add(textFieldCPFouCNPJ);
+		
+		JButton btnVendaConsultar = new JButton("Consultar");
+		btnVendaConsultar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnVendaConsultar.setBounds(569, 47, 127, 42);
+		tabVendasClientes.add(btnVendaConsultar);
+		
+		JTextArea taVendasCliente = new JTextArea();
+		taVendasCliente.setEditable(false);
+		JScrollPane scrollPaneVendasCliente = new JScrollPane();
+		scrollPaneVendasCliente.setViewportView(taVendasCliente);
+			
+		scrollPaneVendasCliente.setBounds(10, 121, 774, 342);
+		tabVendasClientes.add(scrollPaneVendasCliente);
 
-		JPanel tabProdutos = new JPanel();
+				JPanel tabProdutos = new JPanel();
 		tabbedPane.addTab("Produtos", null, tabProdutos, "Cadastrar e consultar produtos");
 		tabProdutos.setLayout(null);
 
@@ -555,6 +589,5 @@ public class TelaFuncionario extends JFrame {
 		btnTiposCadastroCadastrarTipo.addActionListener(tPCont);
 		btnTiposConsultaExcluirTipo.addActionListener(tPCont);
 		btnTiposConsultaRecarregar.addActionListener(tPCont);
-		
 	}
 }
