@@ -97,7 +97,7 @@ public class ProdutoController implements ActionListener {
 
 	}
 
-	public void cadastro() throws IOException {
+	private void cadastro() throws IOException {
 		Produto prod = new Produto();
 		prod.setNome(tfProdutoCadastroNome.getText());
 		prod.setDescricao(taProdutosCadastroDescricao.getText());
