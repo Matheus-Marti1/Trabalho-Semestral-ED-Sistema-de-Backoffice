@@ -25,6 +25,7 @@ import controller.ClienteFisicoController;
 import controller.ClienteJuridicoController;
 import controller.ProdutoController;
 import controller.TipoProdutoController;
+import controller.CheckOutController;
 
 public class TelaFuncionario extends JFrame {
 
@@ -50,7 +51,7 @@ public class TelaFuncionario extends JFrame {
 	private JTextField tfProdutosCadastroCodigo;
 	private JTextField tfTiposCadastroNome;
 	private JTextField tfTiposCadastroCodigo;
-	private JTextField textFieldCPFouCNPJ;
+	private JTextField textFieldIdCompra;
 
 	public TelaFuncionario(JFrame parentFrame) {
 		setTitle("Sistema Backoffice");
@@ -326,29 +327,32 @@ public class TelaFuncionario extends JFrame {
 		tabVendasClientes.setBounds(51, 18, 794, 474);
 		tabVendas.add(tabVendasClientes);
 		
-		JLabel lblClienteCPFouCNPJ = new JLabel("CPF ou CNPJ");
-		lblClienteCPFouCNPJ.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblClienteCPFouCNPJ.setBounds(79, 56, 88, 25);
-		tabVendasClientes.add(lblClienteCPFouCNPJ);
+		JLabel lblIdCompra = new JLabel("ID da Compra");
+		lblIdCompra.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblIdCompra.setBounds(79, 56, 88, 25);
+		tabVendasClientes.add(lblIdCompra);
 		
-		textFieldCPFouCNPJ = new JTextField();
-		textFieldCPFouCNPJ.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textFieldCPFouCNPJ.setColumns(10);
-		textFieldCPFouCNPJ.setBounds(177, 53, 367, 31);
-		tabVendasClientes.add(textFieldCPFouCNPJ);
+		textFieldIdCompra = new JTextField();
+		textFieldIdCompra.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		textFieldIdCompra.setColumns(10);
+		textFieldIdCompra.setBounds(177, 53, 367, 31);
+		tabVendasClientes.add(textFieldIdCompra);
 		
 		JButton btnVendaConsultar = new JButton("Consultar");
 		btnVendaConsultar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnVendaConsultar.setBounds(569, 47, 127, 42);
 		tabVendasClientes.add(btnVendaConsultar);
-		
-		JTextArea taVendasCliente = new JTextArea();
-		taVendasCliente.setEditable(false);
 		JScrollPane scrollPaneVendasCliente = new JScrollPane();
-		scrollPaneVendasCliente.setViewportView(taVendasCliente);
 			
 		scrollPaneVendasCliente.setBounds(10, 121, 774, 342);
 		tabVendasClientes.add(scrollPaneVendasCliente);
+		
+		JList<Object> listaVendasCliente = new JList<Object>();
+		scrollPaneVendasCliente.setViewportView(listaVendasCliente);
+		listaVendasCliente.setFont(new Font("Segoe UI", Font.PLAIN, 10));
+		
+		CheckOutController checkOutCont = new CheckOutController(null, null, null, null, textFieldIdCompra, listaVendasCliente);
+		btnVendaConsultar.addActionListener(checkOutCont);
 
 				JPanel tabProdutos = new JPanel();
 		tabbedPane.addTab("Produtos", null, tabProdutos, "Cadastrar e consultar produtos");

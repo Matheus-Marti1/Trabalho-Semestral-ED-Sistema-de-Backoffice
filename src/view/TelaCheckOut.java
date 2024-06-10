@@ -90,7 +90,7 @@ public class TelaCheckOut extends JFrame {
         btnCheckoutFinaliza.setBounds(420, 414, 173, 42);
         tabCheckOut.add(btnCheckoutFinaliza);
 
-        CheckOutController checkOutCont = new CheckOutController(listaCarrinho, textPaneCheckoutID, listCheckoutRegistro, this);
+        CheckOutController checkOutCont = new CheckOutController(listaCarrinho, textPaneCheckoutID, listCheckoutRegistro, this, null, null);
         btnCheckoutFinaliza.addActionListener(checkOutCont);
     }
 
